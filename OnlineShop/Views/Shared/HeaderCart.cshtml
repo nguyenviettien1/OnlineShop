@@ -1,0 +1,15 @@
+﻿@model List<OnlineShop.Models.CartItem>
+<div class="cart">
+    <p>
+        Chào mừng bạn đến với Online Shop! <span>Giỏ hàng: </span><div id="dd" class="wrapper-dropdown-2">
+            @Model.Count sản phẩm
+            <ul class="dropdown">
+                <li>Bạn có @Model.Count sản phẩm</li>
+                @foreach(var item in Model)
+                {
+                    <li>@item.Product.Name</li>
+                }
+            </ul>
+        </div>
+    </p>
+</div>

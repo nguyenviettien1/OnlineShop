@@ -1,0 +1,6 @@
+C:\Users\Tien\source\repos\OnlineShop\Common\bin\Debug\Common.dll
+C:\Users\Tien\source\repos\OnlineShop\Common\bin\Debug\Common.pdb
+C:\Users\Tien\source\repos\OnlineShop\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Tien\source\repos\OnlineShop\Common\obj\Debug\Common.dll
+C:\Users\Tien\source\repos\OnlineShop\Common\obj\Debug\Common.pdb
+C:\Users\Tien\source\repos\OnlineShop\Common\obj\Debug\Common.csprojAssemblyReference.cache

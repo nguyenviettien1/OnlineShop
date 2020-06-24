@@ -1,0 +1,79 @@
+﻿@model OnlineShop.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .login-back {
+        background: linear-gradient(to bottom, #66ffff 0%, #ffffff 100%);
+    }
+    .login-box {
+        width: 300px;
+        
+        position: relative;
+        margin: 0 auto;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .login-header {
+        font-size: 40px;
+    }
+</style>
+<br />
+<div class="content login-back">
+
+    @using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal login-box contact-form">
+            <h4 class="login-header">Đăng nhập</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "error-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "" })
+                <div>
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "error-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "" })
+                <div>
+                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "" })
+                <div>
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.RememberMe)
+                        @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "error-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Đăng nhập" class="btn btn-default" />
+                </div>
+            </div>
+
+        </div>
+        <div class="list-form-login">
+            <ul>
+                <li><p class="otherlogin"><span>Hoặc</span></p></li>
+                <li>
+                    <div class="btn-otherlogin">
+                        <a href="/User/LoginFacebook" class="btn-fb"><i></i>Facebook</a>
+                        <a href="#" class="btn-gg"><i></i>Google</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/assets/client/js/controller/contactController.js"></script>
+}
+<div class="content">
+    <div class="section group">
+        <div class="col span_2_of_3">
+            <div class="contact-form">
+                <h2>Liên lạc với chúng tôi</h2>
+                <form>
+                    <div>
+                        <span><label>Tên</label></span>
+                        <span><input type="text" id="txtName" class="textbox"></span>
+                    </div>
+                    <div>
+                        <span><label>E-mail</label></span>
+                        <span><input type="text" id="txtEmail" class="textbox"></span>
+                    </div>
+                    <div>
+                        <span><label>Địa chỉ</label></span>
+                        <span><input type="text" id="txtAddress" class="textbox"></span>
+                    </div>
+                    <div>
+                        <span><label>Số điện thoại</label></span>
+                        <span><input type="text" id="txtMobile" class="textbox"></span>
+                    </div>
+                    <div>
+                        <span><label>Nội dung</label></span>
+                        <span><textarea id="txtContent"> </textarea></span>
+                    </div>
+                    <div>
+                        <span><input type="submit" value="Gửi đi" id="btnSend" class="myButton"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col span_1_of_3">
+            <div class="contact_info">
+                <h3>Địa chỉ</h3>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.3704825436625!2d105.78550981403298!3d21.017857086004327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab2bb59619a5%3A0xa916803020f2d071!2sChung%20c%C6%B0%20A10%20CT1!5e0!3m2!1svi!2s!4v1591677107300!5m2!1svi!2s" width="100%" height="175" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+            </div>
+            <div class="company_address">
+                <h3>Thông tin công ty :</h3>
+                <p>2006 Tầng 20 Chung cư A10-CT1 Nam Trung Yên </p>
+                <p>Yên Hòa - Cầu Giấy - Hà Nội</p>
+                <p>Việt Nam</p>
+                <p>Phone:(00) 222 666 444</p>
+                <p>Fax: (000) 000 00 00 0</p>
+                <p>Email: <span><a>viettien98htttbn@gmail.com</a></span></p>
+                <p>Follow on: <span>Facebook</span>, <span>Twitter</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
