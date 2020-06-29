@@ -54,7 +54,7 @@ namespace Model.Dao
             return model.ToList();
         }
         /// <summary>
-        /// Get list new product
+        /// Get list new products
         /// </summary>
         /// <param name="top"></param>
         /// <returns></returns>
@@ -66,6 +66,11 @@ namespace Model.Dao
         {
             return db.Products.Where(x => x.Name.Contains(keyword)).ToList();
         }
+        /// <summary>
+        /// Get list feature products
+        /// </summary>
+        /// <param name="top"></param>
+        /// <returns></returns>
         public List<Product> ListFeatureProduct(int top)
         {
             return db.Products.Where(x => x.TopHot != null && x.TopHot > DateTime.Now).OrderByDescending(x => x.CreatedTime).Take(top).ToList();
@@ -100,7 +105,14 @@ namespace Model.Dao
             model = model.OrderByDescending(x=>x.CreatedTime).Skip((Page - 1) * pageSize).Take(pageSize);
             return model.ToList();
         }
-        
+        /// <summary>
+        /// Get list product by keyword
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="totalRecord"></param>
+        /// <param name="Page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         public List<Product> Search(string keyword, ref int totalRecord, int Page = 1, int pageSize = 8)
         {
             totalRecord = db.Products.Where(x => x.Name.Contains(keyword)).Count();

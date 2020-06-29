@@ -21,6 +21,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             SetViewBag();
             return View();
         }
+        public ActionResult Create(Content model)
+        {
+            SetViewBag();
+            return View();
+        }
         [HttpGet]
         public ActionResult Edit(long id)
         {
@@ -41,11 +46,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Content model)
-        {
-            SetViewBag();
-            return View();
-        }
+        
         public void SetViewBag(long? selectedId = null)
         {
             var dao = new CategoryDao();

@@ -24,6 +24,28 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Create(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                var encryptedMd5Pas = Encryptor.MD5Hash(user.Password);
+                user.Password = encryptedMd5Pas;
+                user.CreatedTime = DateTime.Now;
+                long id = dao.Insert(user);
+                if (id > 0)
+                {
+                    SetAlert("Thêm user thành công", "success");
+                    return RedirectToAction("Index", "User");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Thêm user thất bại");
+                }
+            }
+            return View("Index");
+        }
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -55,28 +77,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             return View("Index");
         }
-        [HttpPost]
-        public ActionResult Create(User user)
-        {
-            if (ModelState.IsValid)
-            {
-                var dao = new UserDao();
-                var encryptedMd5Pas = Encryptor.MD5Hash(user.Password);
-                user.Password = encryptedMd5Pas;
-                user.CreatedTime = DateTime.Now;
-                long id = dao.Insert(user);
-                if (id > 0)
-                {
-                    SetAlert("Thêm user thành công", "success");
-                    return RedirectToAction("Index", "User");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Thêm user thất bại");
-                }
-            }
-            return View("Index");
-        }
+        
         [HttpDelete]
         public ActionResult Delete(int id)
         {

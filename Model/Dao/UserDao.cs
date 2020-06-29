@@ -61,6 +61,13 @@ namespace Model.Dao
             }
             
         }
+        /// <summary>
+        /// Get list users
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         public IEnumerable<User> ListAllPaging(string searchString, int page, int pageSize)
         {
             IQueryable<User> model = db.Users;
@@ -70,6 +77,11 @@ namespace Model.Dao
             }
             return model.OrderByDescending(x => x.CreatedTime).ToPagedList(page, pageSize);
         }
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public User GetById(string userName)
         {
             return db.Users.SingleOrDefault(x=>x.UserName == userName);
@@ -104,6 +116,11 @@ namespace Model.Dao
                 }
             }
         }
+        /// <summary>
+        /// Change status: Lock or Open userName
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool ChangeStatus(long id)
         {
             var user = db.Users.Find(id);
@@ -111,6 +128,11 @@ namespace Model.Dao
             db.SaveChanges();
             return user.Status;
         }
+        /// <summary>
+        /// Delete User
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool Delete(int id)
         {
             try
