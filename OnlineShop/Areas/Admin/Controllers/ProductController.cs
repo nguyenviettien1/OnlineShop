@@ -14,8 +14,22 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Index(string searchStringP, int page = 1, int pageSize = 10)
         {
             var product = new ProductDao();
-            var model = product.ListAllProduct(searchStringP, page, pageSize);
+            int totalProduct = 0;
+            var model = product.ListProductFull(searchStringP, ref totalProduct, page, pageSize);
             ViewBag.SearchStringP = searchStringP;
+            ViewBag.Total = totalProduct;
+            ViewBag.Page = page;
+
+            int maxPage = 100;
+            int totalPage = 0;
+            totalPage = (int)Math.Ceiling(((Double)totalProduct / (Double)pageSize));
+            ViewBag.TotalPage = totalPage;
+            ViewBag.MaxPage = maxPage;
+            ViewBag.First = 1;
+            ViewBag.Last = totalPage;
+            ViewBag.Next = page + 1;
+            ViewBag.Prev = page - 1;
+
             return View(model);
         }
         [HttpGet]
@@ -24,7 +38,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             var product = new ProductDao().ViewDetail(id);
             return View(product);
         }
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
@@ -56,7 +70,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 var dao = new ProductDao();
                 product.CreatedTime = DateTime.Now;
                 long id = dao.Insert(product);
-                
+
                 if (id > 0)
                 {
                     SetAlert("Thêm sản phẩm thành công", "success");

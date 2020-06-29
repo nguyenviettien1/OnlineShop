@@ -1,8 +1,11 @@
 ﻿using Model.EF;
+using Model.ViewModel;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +28,31 @@ namespace Model.Dao
             }
             return model.OrderByDescending(x => x.CreatedTime).ToPagedList(page, pageSize);
         }
+        public IEnumerable<ProductCategoryModel> ListProductFull(string searchStringP, ref int totalProduct, int page, int pageSize)
+        {
+            var model = from a in db.Products
+                        join b in db.ProductCategories
+                        on a.CategoryID equals b.ID
+                        select new ProductCategoryModel()
+                        {
+                            CateMetaTitle = b.MetaTitle,
+                            MetaTitle = a.MetaTitle,
+                            CateName = b.Name,
+                            Name = a.Name,
+                            Image = a.Image,
+                            Price = a.Price,
+                            Description = a.Description,
+                            CreatedTime = a.CreatedTime,
+                            ID = a.ID
+                        };
+            if (!string.IsNullOrEmpty(searchStringP))
+            {
+                model = model.Where(x => x.Name.Contains(searchStringP) || x.MetaTitle.Contains(searchStringP));
+            }
+            totalProduct = model.Count();
+            model = model.OrderByDescending(x => x.CreatedTime).Skip((page - 1) * pageSize).Take(pageSize);
+            return model.ToList();
+        }
         /// <summary>
         /// Get list new product
         /// </summary>
@@ -40,19 +68,39 @@ namespace Model.Dao
         }
         public List<Product> ListFeatureProduct(int top)
         {
-            return db.Products.Where(x => x.TopHot != null && x.TopHot >DateTime.Now).OrderByDescending(x => x.CreatedTime).Take(top).ToList();
+            return db.Products.Where(x => x.TopHot != null && x.TopHot > DateTime.Now).OrderByDescending(x => x.CreatedTime).Take(top).ToList();
         }
         /// <summary>
-        /// Get list product by category
+        /// List product by categoryID
         /// </summary>
         /// <param name="categoryID"></param>
-        /// <returns></returns>
-        public List<Product> ListByCategoryId(long categoryID, ref int totalRecord ,int Page = 1, int pageSize = 8)
+        /// <param name="totalRecord"></param>
+        /// <param name="Page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>        
+        public List<ProductCategoryModel> ListByCategoryId(long categoryID, ref int totalRecord, int Page = 1, int pageSize = 8)
         {
             totalRecord = db.Products.Where(x => x.CategoryID == categoryID).Count();
-            var model = db.Products.Where(x => x.CategoryID == categoryID).OrderByDescending(x=>x.CreatedTime).Skip((Page-1)*pageSize).Take(pageSize).ToList();
-            return model;
+            var model = from a in db.Products
+                        join b in db.ProductCategories
+                        on a.CategoryID equals b.ID
+                        where a.CategoryID == categoryID
+                        select new ProductCategoryModel()
+                        {
+                            CateMetaTitle = b.MetaTitle,
+                            MetaTitle = a.MetaTitle,
+                            CateName = b.Name,
+                            Name = a.Name,
+                            Image = a.Image,
+                            Description = a.Description,
+                            Price = a.Price,
+                            CreatedTime = a.CreatedTime,
+                            ID = a.ID
+                        };
+            model = model.OrderByDescending(x=>x.CreatedTime).Skip((Page - 1) * pageSize).Take(pageSize);
+            return model.ToList();
         }
+        
         public List<Product> Search(string keyword, ref int totalRecord, int Page = 1, int pageSize = 8)
         {
             totalRecord = db.Products.Where(x => x.Name.Contains(keyword)).Count();
@@ -105,7 +153,8 @@ namespace Model.Dao
                 db.SaveChanges();
                 return true;
             }
-            catch(Exception){
+            catch (Exception)
+            {
                 return false;
             }
         }

@@ -170,6 +170,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
+    <Compile Include="Areas\Admin\Models\ProductModel.cs" />
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Controllers\AboutController.cs" />
@@ -1286,7 +1287,6 @@
     <Content Include="assets\client\css\global.css" />
     <Content Include="assets\client\css\jquery-ui.css" />
     <Content Include="assets\client\css\slider.css" />
-    <Content Include="assets\admin\dist\css\style.css" />
     <Content Include="assets\client\css\style.css" />
     <Content Include="assets\client\data\Provinces_Data.xml" />
     <Content Include="assets\client\images\404_2.png" />

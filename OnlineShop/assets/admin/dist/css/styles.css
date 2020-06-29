@@ -4568,7 +4568,27 @@ input[type=button].btn-block {
   list-style: none;
   border-radius: 0.25rem;
 }
+.pagination {
+    display: inline-block;
+}
 
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            border-radius: 5px;
+        }
 .page-link {
   position: relative;
   display: block;
